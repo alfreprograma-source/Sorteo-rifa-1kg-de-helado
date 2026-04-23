@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Rifa 1kg de Helado — Sorteo 10 de mayo. $1.500 por número. ¡Participá!" />
+  <title>Rifa 🍦 1kg de Helado</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ═══════════════════════════════════════════════════
+       ✏️  ZONA DE CONFIGURACIÓN — editá esto fácilmente
+    ═══════════════════════════════════════════════════ */
+
+    /* Colores principales */
+    :root {
+      --cream:      #FDFAF5;
+      --warm-white: #FFFFFF;
+      --coral:      #E85A3C;
+      --coral-dark: #C94728;
+      --coral-soft: #FDEEE9;
+      --amber:      #F5A623;
+      --amber-soft: #FEF6E4;
+      --green:      #2D9E6B;
+      --green-soft: #E6F7F0;
+      --slate:      #B0B8C1;
+      --slate-soft: #F2F4F6;
+      --ink:        #1A1A2E;
+      --ink-mid:    #4A4A6A;
+      --ink-light:  #8888AA;
+      --shadow-sm:  0 2px 8px rgba(26,26,46,0.07);
+      --shadow-md:  0 6px 24px rgba(26,26,46,0.10);
+      --shadow-lg:  0 16px 48px rgba(26,26,46,0.13);
+      --radius-sm:  10px;
+      --radius-md:  18px;
+      --radius-lg:  28px;
+    }
+
+    /* ═══════════════════════════════════════════════════
+       BASE
+    ═══════════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Subtle dot pattern background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle, #E8D8C8 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.35;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 0 16px 60px;
+    }
+
+    /* ═══════════════════════════════════════════════════
+       HEADER
+    ═══════════════════════════════════════════════════ */
+    .hero {
+      padding: 44px 0 32px;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--amber-soft);
+      color: var(--amber);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 99px;
+      border: 1.5px solid #F5D89A;
+      margin-bottom: 18px;
+    }
+
+    .hero-emoji {
+      font-size: 64px;
+      display: block;
+      margin-bottom: 12px;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(-3deg); }
+      50%       { transform: translateY(-10px) rotate(3deg); }
+    }
+
+    .hero-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(32px, 9vw, 48px);
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1.05;
+      letter-spacing: -1px;
+    }
+
+    .hero-title span {
+      color: var(--coral);
+      position: relative;
+      display: inline-block;
+    }
+    .hero-title span::after {
+      content: '';
+      position: absolute;
+      bottom: 2px; left: 0; right: 0;
+      height: 4px;
+      background: var(--coral);
+      border-radius: 99px;
+      opacity: 0.25;
+    }
+
+    .hero-sub {
+      margin-top: 12px;
+      font-size: 15px;
+      color: var(--ink-mid);
+      line-height: 1.6;
+      max-width: 340px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ═══════════════════════════════════════════════════
+       INFO CHIPS
+    ═══════════════════════════════════════════════════ */
+    .chips {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 24px 0;
+    }
+
+    .chip {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: var(--warm-white);
+      border: 1.5px solid #EDE8E0;
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      min-width: 100px;
+      box-shadow: var(--shadow-sm);
+      flex: 1;
+      max-width: 140px;
+    }
+
+    .chip-icon { font-size: 22px; margin-bottom: 4px; }
+
+    .chip-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 3px;
+    }
+
+    .chip-value {
+      font-family: 'Syne', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    /* ═══════════════════════════════════════════════════
+       PROGRESS
+    ═══════════════════════════════════════════════════ */
+    .progress-card {
+      background: var(--warm-white);
+      border: 1.5px solid #EDE8E0;
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 10px;
+    }
+
+    .progress-title {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--ink-light);
+    }
+
+    .progress-count {
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--coral);
+    }
+
+    .progress-track {
+      background: var(--slate-soft);
+      border-radius: 99px;
+      height: 8px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--coral), var(--amber));
+      border-radius: 99px;
+      transition: width 1s cubic-bezier(.4,0,.2,1);
+      position: relative;
+    }
+    .progress-fill::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
+      animation: shimmer 2s infinite;
+    }
+    @keyframes shimmer {
+      0%   { transform: translateX(-100%); }
+      100% { transform: translateX(200%); }
+    }
+
+    .progress-sub {
+      display: flex;
+      justify-content: flex-start;
+      margin-top: 8px;
+      font-size: 11.5px;
+      color: var(--ink-light);
+      font-weight: 500;
+    }
+
+    .progress-sub strong { color: var(--ink-mid); }
+
+    /* ═══════════════════════════════════════════════════
+       GRID SECTION
+    ═══════════════════════════════════════════════════ */
+    .grid-section {
+      background: var(--warm-white);
+      border: 1.5px solid #EDE8E0;
+      border-radius: var(--radius-lg);
+      padding: 22px 16px 20px;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 18px;
+    }
+
+    .grid-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding: 0 2px;
+    }
+
+    .grid-label {
+      font-family: 'Syne', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .legend {
+      display: flex;
+      gap: 12px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ink-light);
+    }
+
+    .legend-dot {
+      width: 10px; height: 10px;
+      border-radius: 3px;
+    }
+    .legend-dot.disponible { background: var(--green-soft); border: 1.5px solid #A8DFC8; }
+    .legend-dot.vendido    { background: var(--slate-soft); border: 1.5px solid var(--slate); }
+
+    /* THE GRID */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 5px;
+    }
+
+    .num {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(10px, 2.8vw, 13px);
+      font-weight: 600;
+      cursor: default;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      user-select: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* DISPONIBLE */
+    .num.disponible {
+      background: var(--green-soft);
+      color: var(--green);
+      border: 1.5px solid #A8DFC8;
+    }
+    @media (hover: hover) {
+      .num.disponible:hover {
+        transform: scale(1.12);
+        box-shadow: 0 4px 14px rgba(45,158,107,0.25);
+        z-index: 2;
+        border-color: var(--green);
+      }
+    }
+
+    /* VENDIDO */
+    .num.vendido {
+      background: var(--slate-soft);
+      color: var(--slate);
+      border: 1.5px solid #DDE2E8;
+      text-decoration: line-through;
+    }
+    .num.vendido::after {
+      content: '✕';
+      position: absolute;
+      font-size: 7px;
+      top: 2px; right: 3px;
+      opacity: 0.5;
+    }
+
+    /* Staggered entrance animation */
+    .num {
+      opacity: 0;
+      animation: popIn 0.3s ease forwards;
+    }
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.7); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    /* ═══════════════════════════════════════════════════
+       URGENCY BANNER (aparece cuando quedan pocos)
+    ═══════════════════════════════════════════════════ */
+    .urgency {
+      background: linear-gradient(135deg, var(--coral) 0%, #E84393 100%);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 8px 24px rgba(232,90,60,0.3);
+      animation: pulse-bg 2s ease-in-out infinite;
+    }
+    @keyframes pulse-bg {
+      0%,100% { box-shadow: 0 8px 24px rgba(232,90,60,0.3); }
+      50%      { box-shadow: 0 8px 32px rgba(232,90,60,0.5); }
+    }
+    .urgency-icon { font-size: 28px; flex-shrink: 0; }
+    .urgency-text { color: #fff; }
+    .urgency-title { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; }
+    .urgency-sub   { font-size: 12.5px; opacity: 0.9; margin-top: 2px; }
+
+    /* ═══════════════════════════════════════════════════
+       CONTACT CARD
+    ═══════════════════════════════════════════════════ */
+    .contact-card {
+      background: var(--ink);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      text-align: center;
+      color: #fff;
+      margin-bottom: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-card::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 140px; height: 140px;
+      background: var(--coral);
+      border-radius: 50%;
+      opacity: 0.12;
+    }
+    .contact-card::after {
+      content: '';
+      position: absolute;
+      bottom: -30px; left: -30px;
+      width: 100px; height: 100px;
+      background: var(--amber);
+      border-radius: 50%;
+      opacity: 0.10;
+    }
+
+    .contact-emoji  { font-size: 36px; margin-bottom: 10px; display: block; }
+
+    .contact-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .contact-sub {
+      font-size: 14px;
+      opacity: 0.7;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .contact-links {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 12px 22px;
+      border-radius: 99px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13.5px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+      cursor: pointer;
+    }
+    .contact-btn:active { transform: scale(0.96); }
+
+    .btn-whatsapp {
+      background: #25D366;
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(37,211,102,0.35);
+    }
+    .btn-instagram {
+      background: linear-gradient(135deg, #F58529, #DD2A7B, #8134AF);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(221,42,123,0.35);
+    }
+    @media (hover: hover) {
+      .contact-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+    }
+
+    /* ═══════════════════════════════════════════════════
+       HOW IT WORKS
+    ═══════════════════════════════════════════════════ */
+    .how-card {
+      background: var(--warm-white);
+      border: 1.5px solid #EDE8E0;
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .how-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .how-steps {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .how-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 13.5px;
+      color: var(--ink-mid);
+      line-height: 1.4;
+    }
+
+    .step-num {
+      width: 24px; height: 24px;
+      background: var(--coral-soft);
+      color: var(--coral);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ═══════════════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════════════ */
+    .footer {
+      text-align: center;
+      padding: 8px 0 0;
+      font-size: 11px;
+      color: var(--ink-light);
+      line-height: 1.6;
+    }
+
+  </style>
+</head>
+
+<body>
+<div class="page">
+
+  <!-- ── HERO ── -->
+  <header class="hero">
+    <div class="hero-badge">🎟️ Sorteo · 10 de Mayo</div>
+    <span class="hero-emoji">🍦</span>
+    <h1 class="hero-title">Rifa <span>1kg de Helado</span></h1>
+    <p class="hero-sub">
+      Participá y llevate tus sabores favoritos.<br>
+      Disfrutá tu premio mirando Netflix o en familia.<br>
+      El sorteo se hará en esta página, en mi historia de Instagram y en mi WhatsApp.
+    </p>
+  </header>
+
+  <!-- ── CHIPS ── -->
+  <div class="chips">
+    <div class="chip">
+      <span class="chip-icon">💰</span>
+      <span class="chip-label">Por número</span>
+      <span class="chip-value">$1.500</span>
+    </div>
+    <div class="chip">
+      <span class="chip-icon">🔢</span>
+      <span class="chip-label">Números</span>
+      <span class="chip-value">100</span>
+    </div>
+    <div class="chip">
+      <span class="chip-icon">📅</span>
+      <span class="chip-label">Sorteo</span>
+      <span class="chip-value">10 / 05</span>
+    </div>
+  </div>
+
+  <!-- ── PROGRESS ── -->
+  <div class="progress-card">
+    <div class="progress-header">
+      <span class="progress-title">🔥 Progreso de la rifa</span>
+      <span class="progress-count" id="sold-label">0 vendidos</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-bar" style="width:0%"></div>
+    </div>
+    <div class="progress-sub">
+      <span>Disponibles: <strong id="available-count">100</strong></span>
+    </div>
+  </div>
+
+  <!-- ── URGENCY BANNER (oculto por defecto, JS lo muestra) ── -->
+  <div class="urgency" id="urgency-banner" style="display:none">
+    <span class="urgency-icon">⚡</span>
+    <div class="urgency-text">
+      <div class="urgency-title" id="urgency-title">¡Últimos números!</div>
+      <div class="urgency-sub">No te quedes afuera · Escribime ya</div>
+    </div>
+  </div>
+
+  <!-- ── GRID ── -->
+  <section class="grid-section">
+    <div class="grid-header">
+      <span class="grid-label">🎟️ Números</span>
+      <div class="legend">
+        <div class="legend-item">
+          <div class="legend-dot disponible"></div> Libre
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot vendido"></div> Vendido
+        </div>
+      </div>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <!-- ── CÓMO PARTICIPAR ── -->
+  <div class="how-card">
+    <div class="how-title">📋 ¿Cómo participar?</div>
+    <ul class="how-steps">
+      <li class="how-step">
+        <span class="step-num">1</span>
+        <span>Elegí un número disponible (en verde) de la grilla</span>
+      </li>
+      <li class="how-step">
+        <span class="step-num">2</span>
+        <span>Escribime por WhatsApp o Instagram con el número elegido</span>
+      </li>
+      <li class="how-step">
+        <span class="step-num">3</span>
+        <span>Realizá el pago de <strong>$1.500</strong> por transferencia</span>
+      </li>
+      <li class="how-step">
+        <span class="step-num">4</span>
+        <span>El sorteo se hará en esta página, en mi Instagram y en mi historia de WhatsApp el <strong>10 de mayo</strong> 🎉</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ── CONTACTO ── -->
+  <div class="contact-card">
+    <span class="contact-emoji">📲</span>
+    <div class="contact-title">¿Querés participar?</div>
+    <p class="contact-sub">
+      Escribime y te doy el número.<br>El pago se puede hacer por transferencia o efectivo.
+    </p>
+    <div class="contact-links">
+      <!--
+        ✏️ EDITÁ ESTOS LINKS:
+        WhatsApp: reemplazá 5491100000000 con tu número (código país + área + número, sin +)
+        Instagram: reemplazá @tuusuario con tu usuario real
+      -->
+      <a class="contact-btn btn-whatsapp"
+         href="https://wa.me/5493364356618?text=Hola!%20Quiero%20participar%20en%20la%20rifa%20🍦"
+         target="_blank" rel="noopener">
+        <!-- WhatsApp SVG icon -->
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 0C5.373 0 0 5.373 0 12c0 2.118.554 4.107 1.523 5.832L.057 23.852a.5.5 0 00.608.608l6.02-1.466A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 11.999 0zm.001 21.818a9.818 9.818 0 01-5.011-1.375l-.36-.214-3.722.906.922-3.617-.236-.372A9.817 9.817 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>
+        WhatsApp
+      </a>
+      <a class="contact-btn btn-instagram"
+         href="https://www.instagram.com/_4fr3_?igsh=Mmt3MDZicHhwazdp"
+         target="_blank" rel="noopener">
+        <!-- Instagram SVG icon -->
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        Instagram
+      </a>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>Rifa organizada con ❤️ — El sorteo se realiza en esta página, mi historia de Instagram y Whatsapp el <strong>sábado 10 de mayo</strong></p>
+    <p style="margin-top:4px">El ganador será notificado vía WhatsApp o Instagram 🍦</p>
+  </footer>
+
+</div>
+
+<script>
+  // ═══════════════════════════════════════════════════════════
+  //  ✏️  ÚNICA LÍNEA QUE NECESITÁS EDITAR AL VENDER NÚMEROS
+  //
+  //  Agregá los números vendidos en este array.
+  //  Ejemplo: si vendiste el 7, el 23 y el 55 →
+  //  const VENDIDOS = [7, 23, 55];
+  //
+  // ═══════════════════════════════════════════════════════════
+  const VENDIDOS = [5, 67, 32, 26, 8, 19, 73, 23, 7];
+  // ───────────────────────────────────────────────────────────
+  // No necesitás tocar nada más abajo de esta línea
+  // ═══════════════════════════════════════════════════════════
+
+  const TOTAL  = 100;
+  const PRECIO = 1500;
+
+  const grid          = document.getElementById('grid');
+  const progressBar   = document.getElementById('progress-bar');
+  const soldLabel     = document.getElementById('sold-label');
+  const availableCount= document.getElementById('available-count');
+  const urgencyBanner = document.getElementById('urgency-banner');
+  const urgencyTitle  = document.getElementById('urgency-title');
+
+  const soldSet = new Set(VENDIDOS);
+  const sold    = soldSet.size;
+  const avail   = TOTAL - sold;
+  const pct     = (sold / TOTAL) * 100;
+
+  // Update stats
+  progressBar.style.width   = pct + '%';
+  soldLabel.textContent     = sold + (sold === 1 ? ' vendido' : ' vendidos');
+  availableCount.textContent= avail;
+
+  // Urgency banner
+  if (avail <= 20 && avail > 0) {
+    urgencyBanner.style.display = 'flex';
+    urgencyTitle.textContent = avail === 1
+      ? '¡Último número disponible!'
+      : `¡Solo quedan ${avail} números!`;
+  }
+
+  // Build grid
+  for (let i = 1; i <= TOTAL; i++) {
+    const div = document.createElement('div');
+    div.className = 'num ' + (soldSet.has(i) ? 'vendido' : 'disponible');
+    div.textContent = String(i).padStart(2, '0');
+    div.style.animationDelay = (i * 8) + 'ms';
+    grid.appendChild(div);
+  }
+</script>
+
+</body>
+</html>
